@@ -1,5 +1,4 @@
-﻿using Mapster;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
 namespace Catalog.API.Entities;
 
