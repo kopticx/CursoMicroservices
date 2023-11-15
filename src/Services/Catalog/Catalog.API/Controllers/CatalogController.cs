@@ -19,9 +19,9 @@ public class CatalogController : ControllerBase
 
   [HttpGet]
   [ProducesResponseType(typeof(List<Product>), (int)HttpStatusCode.OK)]
-  public IActionResult GetProducts()
+  public async Task<IActionResult> GetProducts()
   {
-    var products = _repository.GetProducts();
+    var products = await _repository.GetProducts();
 
     return Ok(products);
   }

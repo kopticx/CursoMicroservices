@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "Services\Basket\Basket.API\Basket.API.csproj", "{9F7B644C-6DE4-4185-94D4-9B3F5EDD03D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,5 +19,9 @@ Global
 		{0D3B63C4-D002-408D-9173-985398A6AF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D3B63C4-D002-408D-9173-985398A6AF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D3B63C4-D002-408D-9173-985398A6AF1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F7B644C-6DE4-4185-94D4-9B3F5EDD03D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F7B644C-6DE4-4185-94D4-9B3F5EDD03D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F7B644C-6DE4-4185-94D4-9B3F5EDD03D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F7B644C-6DE4-4185-94D4-9B3F5EDD03D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
