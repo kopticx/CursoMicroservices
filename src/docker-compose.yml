@@ -5,6 +5,18 @@
   basketdb:
     image: redis:alpine
 
+  portainer:
+    image: portainer/portainer-ce
+
+  discountdb:
+    image: postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+
+  identitydb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
   catalog.api:
     image: catalog.api
     build:
@@ -17,5 +29,16 @@
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
 
+  identity.api:
+    image: identity.api
+    build:
+      context: .
+      dockerfile: Services/Identity/Identity.API/Dockerfile
+
 volumes:
   mongo_data:
+  portainer_data:
+  postgres_data:
+  pgadmin_data:
+
+  identitydb_data:
