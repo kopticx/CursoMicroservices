@@ -62,14 +62,17 @@ public class AuthController(
   [HttpGet("RenovarToken", Name = "renovarTokenUsuario")]
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   [ProducesResponseType(typeof(RespuestaAuthDTO), (int)HttpStatusCode.OK)]
+  [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
   public async Task<IActionResult> RenovarToken()
   {
     var emailClaim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email);
     var email = emailClaim.Value;
+    var name = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
 
     var credencialesUsuario = new CredencialesUsuarioDTO()
     {
-      Email = email
+      Email = email,
+      UserName = name
     };
 
     return Ok(await ConstruirToken(credencialesUsuario));

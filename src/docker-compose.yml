@@ -11,9 +11,6 @@
   discountdb:
     image: postgres
 
-  pgadmin:
-    image: dpage/pgadmin4
-
   identitydb:
     image: mcr.microsoft.com/mssql/server:2019-latest
 
@@ -29,6 +26,12 @@
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
 
+  discount.api:
+    image: discount.api
+    build:
+      context: .
+      dockerfile: Services/Discount/Discount.API/Dockerfile
+
   identity.api:
     image: identity.api
     build:
@@ -39,6 +42,5 @@ volumes:
   mongo_data:
   portainer_data:
   postgres_data:
-  pgadmin_data:
 
   identitydb_data:
