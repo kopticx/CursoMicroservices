@@ -13,14 +13,14 @@ public class BasketRepository : IBasketRepository
     _redisCache = redisCache;
   }
 
-  public async Task<ShoppingCart?> GetBasket(string userName)
+  public async Task<ShoppingCart> GetBasket(string userName)
   {
     var basket = await _redisCache.GetStringAsync(userName);
 
     return string.IsNullOrEmpty(basket) ? null : JsonConvert.DeserializeObject<ShoppingCart>(basket);
   }
 
-  public async Task<ShoppingCart?> UpdateBasket(ShoppingCart basket)
+  public async Task<ShoppingCart> UpdateBasket(ShoppingCart basket)
   {
     await _redisCache.SetStringAsync(basket.UserName, JsonConvert.SerializeObject(basket));
 
