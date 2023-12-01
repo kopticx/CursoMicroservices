@@ -1,0 +1,124 @@
+{
+  "Routes": [
+    //Authentication
+    {
+      "DownstreamPathTemplate": "/api/auth/Registrar",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/auth/Registrar",
+      "UpstreamHttpMethod": [
+        "Post"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/auth/Login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/auth/Login",
+      "UpstreamHttpMethod": [
+        "Post"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/auth/RenovarToken",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/auth/RenovarToken",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/auth/HacerAdmin",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/auth/HacerAdmin",
+      "UpstreamHttpMethod": [
+        "Post"
+      ],
+      "RouteClaimsRequirement": {
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "admin"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/auth/RemoveAdmin",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/auth/RemoveAdmin",
+      "UpstreamHttpMethod": [
+        "Post"
+      ],
+      "RouteClaimsRequirement": {
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "admin"
+      }
+    },
+    // Catalog
+    {
+      "DownstreamPathTemplate": "/api/catalog",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/catalog",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/catalog",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/catalog",
+      "UpstreamHttpMethod": [
+        "Post"
+      ],
+      "RouteClaimsRequirement": {
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "admin"
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseURL": "http://localhost:8010"
+  }
+}

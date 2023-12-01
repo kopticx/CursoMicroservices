@@ -81,9 +81,17 @@ public class AuthController(
   [HttpPost("HacerAdmin", Name = "hacerAdmin")]
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "EsAdmin")]
   [ProducesResponseType((int)HttpStatusCode.NoContent)]
+  [ProducesResponseType((int)HttpStatusCode.Forbidden)]
+  [ProducesResponseType((int)HttpStatusCode.NotFound)]
   public async Task<IActionResult> HacerAdmin(EditarAdminDTO model)
   {
     var usuario = await userManager.FindByEmailAsync(model.Email);
+
+    if (usuario is null)
+    {
+      return NotFound("Usuario no encontrado");
+    }
+
     await userManager.AddClaimAsync(usuario, new Claim(ClaimTypes.Role, "admin"));
 
     return NoContent();
@@ -92,6 +100,7 @@ public class AuthController(
   [HttpPost("RemoveAdmin", Name = "removeAdmin")]
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "EsAdmin")]
   [ProducesResponseType((int)HttpStatusCode.NoContent)]
+  [ProducesResponseType((int)HttpStatusCode.Forbidden)]
   public async Task<IActionResult> RemoveAdmin(EditarAdminDTO model)
   {
     var usuario = await userManager.FindByEmailAsync(model.Email);

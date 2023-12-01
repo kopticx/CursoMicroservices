@@ -38,6 +38,12 @@
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
 
+  apigateway:
+    image: apigateway
+    build:
+      context: .
+      dockerfile: Services/Gateway/ApiGateway/Dockerfile
+
 volumes:
   mongo_data:
   portainer_data:

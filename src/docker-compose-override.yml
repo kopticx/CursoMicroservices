@@ -53,7 +53,7 @@ services:
     depends_on:
       - catalogdb
     ports:
-      - "8000:80"
+      - "8000:8080"
 
   basket.api:
     container_name: basket.api
@@ -63,7 +63,7 @@ services:
     depends_on:
       - basketdb
     ports:
-      - "8001:80"
+      - "8001:8080"
 
   discount.api:
     container_name: discount.api
@@ -84,3 +84,15 @@ services:
       - identitydb
     ports:
       - "8005:8080"
+
+  apigateway:
+    container_name: apigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - catalog.api
+      - basket.api
+      - discount.api
+      - identity.api
+    ports:
+      - "8010:8080"
