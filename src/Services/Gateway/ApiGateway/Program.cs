@@ -1,25 +1,54 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerForOcelot(builder.Configuration, options =>
+{
+  options.GenerateDocsDocsForGatewayItSelf(opt =>
+  {
+    opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+      Name = "Authorization",
+      Type = SecuritySchemeType.ApiKey,
+      Scheme = "Bearer",
+      BearerFormat = "JWT",
+      In = ParameterLocation.Header
+    });
+    opt.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+      {
+        new OpenApiSecurityScheme
+        {
+          Reference = new OpenApiReference
+          {
+            Type = ReferenceType.SecurityScheme,
+            Id = "Bearer"
+          }
+        },
+        Array.Empty<string>()
+      }
+    });
+  });
+});
 builder.Configuration.AddJsonFile("ocelot.json", true, true);
 
-builder.Services.AddAuthentication(options =>
+builder.Services.AddAuthentication().AddJwtBearer(options =>
 {
-  options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-  options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
+  options.Authority = "http://localhost:8005";
+  options.RequireHttpsMetadata = false;
+
   options.TokenValidationParameters = new TokenValidationParameters()
   {
+    RoleClaimType = "role",
     ValidateIssuer = false,
     ValidateAudience = false,
     ValidateLifetime = true,
@@ -30,11 +59,11 @@ builder.Services.AddAuthentication(options =>
   };
 });
 
-builder.Services.AddAuthorization();
-
 builder.Services.AddOcelot();
 
 var app = builder.Build();
+
+app.UseSwaggerForOcelotUI(opt => opt.PathToSwaggerGenerator = "/swagger/docs");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

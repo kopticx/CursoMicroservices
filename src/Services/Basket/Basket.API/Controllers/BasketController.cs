@@ -28,7 +28,8 @@ public class BasketController(IBasketRepository repository, DiscountGrpcService 
 
     foreach (var item in basket.Items)
     {
-
+      var coupon = await discountGrpcService.GetDiscount(item.ProductName);
+      item.Price -= coupon.Amount;
     }
 
     return Ok(await repository.UpdateBasket(basket));
