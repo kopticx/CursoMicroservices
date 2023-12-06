@@ -1,6 +1,5 @@
 {
   "Routes": [
-    //Authentication
     {
       "DownstreamPathTemplate": "/api/auth/Registrar",
       "DownstreamScheme": "http",
@@ -13,7 +12,8 @@
       "UpstreamPathTemplate": "/api/auth/Registrar",
       "UpstreamHttpMethod": [
         "Post"
-      ]
+      ],
+      "SwaggerKey": "identity"
     },
     {
       "DownstreamPathTemplate": "/api/auth/Login",
@@ -27,7 +27,8 @@
       "UpstreamPathTemplate": "/api/auth/Login",
       "UpstreamHttpMethod": [
         "Post"
-      ]
+      ],
+      "SwaggerKey": "identity"
     },
     {
       "DownstreamPathTemplate": "/api/auth/RenovarToken",
@@ -45,7 +46,8 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
-      }
+      },
+      "SwaggerKey": "identity"
     },
     {
       "DownstreamPathTemplate": "/api/auth/HacerAdmin",
@@ -60,9 +62,14 @@
       "UpstreamHttpMethod": [
         "Post"
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
       "RouteClaimsRequirement": {
-        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "admin"
-      }
+        "rol": "admin"
+      },
+      "SwaggerKey": "identity"
     },
     {
       "DownstreamPathTemplate": "/api/auth/RemoveAdmin",
@@ -77,11 +84,15 @@
       "UpstreamHttpMethod": [
         "Post"
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
       "RouteClaimsRequirement": {
-        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "admin"
-      }
+        "rol": "admin"
+      },
+      "SwaggerKey": "identity"
     },
-    // Catalog
     {
       "DownstreamPathTemplate": "/api/catalog",
       "DownstreamScheme": "http",
@@ -98,10 +109,11 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
-      }
+      },
+      "SwaggerKey": "catalog"
     },
     {
-      "DownstreamPathTemplate": "/api/catalog",
+      "DownstreamPathTemplate": "/api/catalog/CreateProduct",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -109,13 +121,100 @@
           "Port": 8080
         }
       ],
-      "UpstreamPathTemplate": "/api/catalog",
+      "UpstreamPathTemplate": "/api/catalog/CreateProduct",
       "UpstreamHttpMethod": [
         "Post"
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
       "RouteClaimsRequirement": {
-        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "admin"
-      }
+        "rol": "admin"
+      },
+      "SwaggerKey": "catalog"
+    },
+    {
+      "DownstreamPathTemplate": "/api/catalog/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/catalog/{id}}",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "SwaggerKey": "catalog"
+    },
+    {
+      "DownstreamPathTemplate": "/api/catalog/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/catalog/delete/{id}",
+      "UpstreamHttpMethod": [
+        "Delete"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "rol": "admin"
+      },
+      "SwaggerKey": "catalog"
+    },
+    {
+      "DownstreamPathTemplate": "/api/catalog/getProductByCategory/{category}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/catalog/getProductByCategory/{category}",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "SwaggerKey": "catalog"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "identity",
+      "Config": [
+        {
+          "Name": "Identity API",
+          "Version": "v1",
+          "Url": "http://identity.api:8080/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "catalog",
+      "Config": [
+        {
+          "Name": "Catalog API",
+          "Version": "v1",
+          "Url": "http://catalog.api:8080/swagger/v1/swagger.json"
+        }
+      ]
     }
   ],
   "GlobalConfiguration": {

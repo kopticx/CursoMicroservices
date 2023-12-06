@@ -104,7 +104,13 @@ public class AuthController(
   public async Task<IActionResult> RemoveAdmin(EditarAdminDTO model)
   {
     var usuario = await userManager.FindByEmailAsync(model.Email);
-    await userManager.RemoveClaimAsync(usuario, new Claim(ClaimTypes.Role, "admin"));
+
+    if (usuario is null)
+    {
+      return NotFound("Usuario no encontrado");
+    }
+
+    await userManager.RemoveClaimAsync(usuario, new Claim("rol", "admin"));
 
     return NoContent();
   }
