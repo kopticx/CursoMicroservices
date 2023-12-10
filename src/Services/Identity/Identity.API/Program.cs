@@ -1,5 +1,3 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
 using Identity.API.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -35,7 +33,7 @@ builder.Services.AddSwaggerGen(c =>
           Id = "Bearer"
         }
       },
-      new string[] { }
+      Array.Empty<string>()
     }
   });
 });

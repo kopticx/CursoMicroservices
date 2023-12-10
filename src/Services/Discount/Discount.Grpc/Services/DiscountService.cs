@@ -6,7 +6,7 @@ using Grpc.Core;
 
 namespace Discount.Grpc.Services;
 
-public class DiscountService(IDiscountRepository repository, IMapperBase mapper) : DiscountProtoService.DiscountProtoServiceBase
+public class DiscountService(IDiscountRepository repository, IMapper mapper) : DiscountProtoService.DiscountProtoServiceBase
 {
   public override async Task<CouponModel> GetDiscount(GetDiscountRequest request, ServerCallContext context)
   {
