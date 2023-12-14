@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discount.Grpc", "Services\D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "Services\Gateway\ApiGateway\ApiGateway.csproj", "{3009A400-284F-4F6E-BE30-43694D5C3BA2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{C786537B-E5E5-4D6E-B509-F79EA7FE35FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.API", "Services\Ordering\Ordering.API\Ordering.API.csproj", "{0939C745-C0BF-416D-A211-3221A7BAC4F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,5 +51,12 @@ Global
 		{3009A400-284F-4F6E-BE30-43694D5C3BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3009A400-284F-4F6E-BE30-43694D5C3BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3009A400-284F-4F6E-BE30-43694D5C3BA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0939C745-C0BF-416D-A211-3221A7BAC4F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0939C745-C0BF-416D-A211-3221A7BAC4F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0939C745-C0BF-416D-A211-3221A7BAC4F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0939C745-C0BF-416D-A211-3221A7BAC4F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0939C745-C0BF-416D-A211-3221A7BAC4F5} = {C786537B-E5E5-4D6E-B509-F79EA7FE35FD}
 	EndGlobalSection
 EndGlobal
