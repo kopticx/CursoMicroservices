@@ -6,53 +6,44 @@ using MongoDB.Driver;
 
 namespace Catalog.API.Repositories;
 
-public class ProductRepository : IProductRepository
+public class ProductRepository(ICatalogContext context, IMapper mapper) : IProductRepository
 {
-  private readonly ICatalogContext _context;
-  private readonly IMapper _mapper;
-
-  public ProductRepository(ICatalogContext context, IMapper mapper)
-  {
-    _context = context;
-    _mapper = mapper;
-  }
-
   public async Task<IEnumerable<Product>> GetProducts()
   {
-    return await _context.Products.Find(p => true).ToListAsync();
+    return await context.Products.FindAsync(p => true).Result.ToListAsync();
   }
 
   public async Task<Product> GetProduct(string id)
   {
-    return await _context.Products.Find(p => p.Id == id).FirstOrDefaultAsync();
+    return await context.Products.FindAsync(p => p.Id == id).Result.FirstOrDefaultAsync();
   }
 
   public async Task<IEnumerable<Product>> GetProductByName(string name)
   {
     var filter = Builders<Product>.Filter.Eq(p => p.Name, name);
 
-    return await _context.Products.Find(filter).ToListAsync();
+    return await context.Products.FindAsync(filter).Result.ToListAsync();
   }
 
   public async Task<IEnumerable<Product>> GetProductByCategory(string categoryName)
   {
     var filter = Builders<Product>.Filter.Eq(p => p.Category, categoryName);
 
-    return await _context.Products.Find(filter).ToListAsync();
+    return await context.Products.FindAsync(filter).Result.ToListAsync();
   }
 
   public async Task<string> CreateProduct(ProductDTO model)
   {
-    var product = _mapper.Map<Product>(model);
+    var product = mapper.Map<Product>(model);
 
-    await _context.Products.InsertOneAsync(product);
+    await context.Products.InsertOneAsync(product);
 
     return product.Id;
   }
 
   public async Task<bool> UpdateProduct(Product product)
   {
-    var updateResult = await _context.Products.ReplaceOneAsync(filter: g => g.Id == product.Id, replacement: product);
+    var updateResult = await context.Products.ReplaceOneAsync(filter: g => g.Id == product.Id, replacement: product);
 
     return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
   }
@@ -61,7 +52,7 @@ public class ProductRepository : IProductRepository
   {
     var filter = Builders<Product>.Filter.Eq(p => p.Id, id);
 
-    var deleteResult = await _context.Products.DeleteOneAsync(filter);
+    var deleteResult = await context.Products.DeleteOneAsync(filter);
 
     return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
   }
